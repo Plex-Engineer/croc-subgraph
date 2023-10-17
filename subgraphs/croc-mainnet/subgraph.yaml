@@ -28,7 +28,7 @@ dataSources:
       network: mainnet
       source:
           abi: ColdPath
-          address: "0x9B2a63F27661A468E2da22226b64A4914144f195"
+          address: "0x9290C893ce949FE13EF3355660d07dE0FB793618"
           startBlock: 6441379
       mapping:
           kind: ethereum/events
@@ -50,7 +50,7 @@ dataSources:
       network: mainnet
       source:
           abi: WarmPath
-          address: "0x74ff14e7E80DC76C355B156A06882e18C1938A19"
+          address: "0x9290C893ce949FE13EF3355660d07dE0FB793618"
           startBlock: 6441379
       mapping:
           kind: ethereum/events
@@ -71,7 +71,7 @@ dataSources:
       network: mainnet
       source:
           abi: MicroPaths
-          address: "0xB183D02122F55f928d711Ef10C3758A512aCaBd3"
+          address: "0x9290C893ce949FE13EF3355660d07dE0FB793618"
           startBlock: 6441379
       mapping:
           kind: ethereum/events
@@ -101,7 +101,7 @@ dataSources:
       network: mainnet
       source:
           abi: KnockoutLiqPath
-          address: "0x29BfE042158b5a213c224AFE44C749eC4429527A"
+          address: "0x9290C893ce949FE13EF3355660d07dE0FB793618"
           startBlock: 6441379
       mapping:
           kind: ethereum/events
@@ -122,7 +122,7 @@ dataSources:
       network: mainnet
       source:
           abi: KnockoutCounter
-          address: "0x35E66506D8d1f456Ac0eD8fF0C50a847d43ec02C"
+          address: "0x9290C893ce949FE13EF3355660d07dE0FB793618"
           startBlock: 6441379
       mapping:
           kind: ethereum/events
