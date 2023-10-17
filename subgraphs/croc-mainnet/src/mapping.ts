@@ -209,7 +209,7 @@ export function modifyLiquidity(transaction: Bytes, userAddress: Address, blockN
 }
 
 // Creates Swap entities
-export function handleSwap(transaction: Bytes, userAddress: Address, poolHash: Bytes, blockNumber: BigInt, transactionIndex: BigInt, timestamp: BigInt, isBuy: boolean, inBaseQty: boolean, qty: BigInt, limitPrice: BigInt | null, minOut: BigInt | null, baseFlow: BigInt, quoteFlow: BigInt, callSource: string, dex: string): void {
+export function handleSwap(transaction: Bytes, userAddress: Address, poolHash: Bytes, blockNumber: BigInt, transactionIndex: BigInt, timestamp: BigInt, isBuy: boolean, inBaseQty: boolean, baseFlow: BigInt, quoteFlow: BigInt, callSource: string, dex: string): void {
   // Get unique entity ID
   const entityType = "swap"
   const callIndex = getNextCallIndex(entityType, transaction)
@@ -225,11 +225,11 @@ export function handleSwap(transaction: Bytes, userAddress: Address, poolHash: B
   swap.pool = poolHash
   swap.isBuy = isBuy
   swap.inBaseQty = inBaseQty
-  swap.qty = qty
-  if (limitPrice !== null) {
-    swap.limitPrice = fixedToFloatingPoint(limitPrice)
-  }
-  swap.minOut = minOut
+  // swap.qty = qty
+  // if (limitPrice !== null) {
+  //   swap.limitPrice = fixedToFloatingPoint(limitPrice)
+  // }
+  // swap.minOut = minOut
   swap.baseFlow = baseFlow
   swap.quoteFlow = quoteFlow
   if (quoteFlow.abs() > BigInt.fromI32(0)) {
@@ -374,18 +374,19 @@ export function handleDirectSwapCall(call: SwapCall): void {
 
 // event CrocSwap (address indexed base, address indexed quote, uint256 poolIdx, bool isBuy, bool inBaseQty, uint128 qty, uint16 tip, uint128 limitPrice, uint128 minOut, uint8 reserveFlags, int128 baseFlow, int128 quoteFlow);
 export function handleDirectSwapEvent(event: CrocSwap): void {
+  const poolIndex = BigInt.fromI64(36000);
   handleSwap(
     event.transaction.hash,
     event.transaction.from,
-    getPoolHash(event.params.base, event.params.quote, event.params.poolIdx),
+    getPoolHash(event.params.base, event.params.quote, poolIndex),
     event.block.number,
     event.transaction.index,
     event.block.timestamp,
     event.params.isBuy,
     event.params.inBaseQty,
-    event.params.qty,
-    event.params.limitPrice,
-    event.params.minOut,
+    // event.params.qty,
+    // event.params.limitPrice,
+    // event.params.minOut,
     event.params.baseFlow,
     event.params.quoteFlow,
     "hotpath_event",
