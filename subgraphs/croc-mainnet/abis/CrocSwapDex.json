@@ -289,12 +289,6 @@
       },
       {
         "indexed": false,
-        "internalType": "uint256",
-        "name": "poolIdx",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
         "internalType": "bool",
         "name": "isBuy",
         "type": "bool"
@@ -304,36 +298,6 @@
         "internalType": "bool",
         "name": "inBaseQty",
         "type": "bool"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint128",
-        "name": "qty",
-        "type": "uint128"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint16",
-        "name": "tip",
-        "type": "uint16"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint128",
-        "name": "limitPrice",
-        "type": "uint128"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint128",
-        "name": "minOut",
-        "type": "uint128"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint8",
-        "name": "reserveFlags",
-        "type": "uint8"
       },
       {
         "indexed": false,
