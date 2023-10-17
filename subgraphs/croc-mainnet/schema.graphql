@@ -3,24 +3,21 @@ A Swap entity represents an atomic swap of a base token for a quote token
 made on either CrocSwap or Uniswap V3.
 """
 type Swap @entity(immutable: true) {
-  id: Bytes!
-  transactionHash: Bytes!
-  callIndex: Int!
-  user: Bytes!
-  block: BigInt!
-  transactionIndex: BigInt!
-  time: BigInt!
-  pool: Pool!
-  isBuy: Boolean!
-  inBaseQty: Boolean!
-  qty: BigInt!
-  limitPrice: BigDecimal
-  minOut: BigInt
-  baseFlow: BigInt!
-  quoteFlow: BigInt!
-  price: BigDecimal
-  callSource: String!
-  dex: String!
+	id: Bytes!
+	transactionHash: Bytes!
+	callIndex: Int!
+	user: Bytes!
+	block: BigInt!
+	transactionIndex: BigInt!
+	time: BigInt!
+	pool: Pool!
+	isBuy: Boolean!
+	inBaseQty: Boolean!
+	baseFlow: BigInt!
+	quoteFlow: BigInt!
+	price: BigDecimal
+	callSource: String!
+	dex: String!
 }
 
 """
@@ -30,23 +27,23 @@ according to their changeType, which can be equal to mint, burn, harvest,
 claim, or recover.
 """
 type LiquidityChange @entity(immutable: true) {
-  id: Bytes!
-  transactionHash: Bytes!
-  callIndex: Int!
-  pool: Pool!
-  user: Bytes!
-  block: BigInt!
-  time: BigInt!
-  positionType: String!
-  changeType: String!
-  bidTick: Int
-  askTick: Int
-  isBid: Boolean!
-  liq: BigInt
-  baseFlow: BigInt
-  quoteFlow: BigInt
-  callSource: String!
-  pivotTime: BigInt
+	id: Bytes!
+	transactionHash: Bytes!
+	callIndex: Int!
+	pool: Pool!
+	user: Bytes!
+	block: BigInt!
+	time: BigInt!
+	positionType: String!
+	changeType: String!
+	bidTick: Int
+	askTick: Int
+	isBid: Boolean!
+	liq: BigInt
+	baseFlow: BigInt
+	quoteFlow: BigInt
+	callSource: String!
+	pivotTime: BigInt
 }
 
 """
@@ -55,30 +52,30 @@ specified by a base token, a quote token, and a poolIdx. The ID of the Pool
 is the same as the poolHash used internally in CrocSwap contracts.
 """
 type Pool @entity(immutable: true) {
-  id: Bytes!
-  blockCreate: BigInt!
-  timeCreate: BigInt!
-  base: Bytes!
-  quote: Bytes!
-  poolIdx: BigInt!
-  template: PoolTemplate
-  swaps: [Swap!]! @derivedFrom(field: "pool")
-  liquidityChanges: [LiquidityChange!]! @derivedFrom(field: "pool")
+	id: Bytes!
+	blockCreate: BigInt!
+	timeCreate: BigInt!
+	base: Bytes!
+	quote: Bytes!
+	poolIdx: BigInt!
+	template: PoolTemplate
+	swaps: [Swap!]! @derivedFrom(field: "pool")
+	liquidityChanges: [LiquidityChange!]! @derivedFrom(field: "pool")
 }
 
 """
 PoolTemplate represents a pool type pattern to create new pools
 """
 type PoolTemplate @entity(immutable: false) {
-  id: Bytes!
-  blockInit: BigInt!
-  timeInit: BigInt!
-  blockRevise: BigInt!
-  timeRevise: BigInt!
-  poolIdx: BigInt!
-  feeRate: Int!
-  enabled: Boolean!
-  pools: [Pool!]! @derivedFrom(field: "template")
+	id: Bytes!
+	blockInit: BigInt!
+	timeInit: BigInt!
+	blockRevise: BigInt!
+	timeRevise: BigInt!
+	poolIdx: BigInt!
+	feeRate: Int!
+	enabled: Boolean!
+	pools: [Pool!]! @derivedFrom(field: "template")
 }
 
 """
@@ -87,15 +84,15 @@ emitted by the CrocSwap DEX. There is an exact 1:1 correspondence between
 emitted events and KnockoutCross entities created by the subgraph.
 """
 type KnockoutCross @entity(immutable: true) {
-  id: Bytes!
-  block: BigInt!
-  time: BigInt!
-  transactionHash: Bytes!
-  pool: Pool!
-  tick: Int!
-  isBid: Boolean!
-  pivotTime: BigInt!
-  feeMileage: BigInt!
+	id: Bytes!
+	block: BigInt!
+	time: BigInt!
+	transactionHash: Bytes!
+	pool: Pool!
+	tick: Int!
+	isBid: Boolean!
+	pivotTime: BigInt!
+	feeMileage: BigInt!
 }
 
 """
@@ -106,12 +103,12 @@ entities collectively represent the universe of tokens for which users
 might have nonzero internal DEX balances.
 """
 type UserBalance @entity(immutable: true) {
-  id: Bytes!
-  transactionHash: Bytes!
-  block: BigInt!
-  time: BigInt!
-  user: Bytes!
-  token: Bytes!
+	id: Bytes!
+	transactionHash: Bytes!
+	block: BigInt!
+	time: BigInt!
+	user: Bytes!
+	token: Bytes!
 }
 
 """
@@ -120,8 +117,8 @@ generation of unique event IDs in the case where multiple identical entities
 would otherwise be created within the same transaction.
 """
 type LatestIndex @entity {
-  id: Bytes!
-  callIndex: Int!
+	id: Bytes!
+	callIndex: Int!
 }
 
 """
@@ -129,13 +126,13 @@ A FeeChange represents an update to the swap fee setting on a given CrocSwap
 liquidity pool.
 """
 type FeeChange @entity(immutable: true) {
-  id: Bytes!
-  transactionHash: Bytes!
-  callIndex: Int!
-  block: BigInt!
-  time: BigInt!
-  pool: Pool!
-  feeRate: Int!
+	id: Bytes!
+	transactionHash: Bytes!
+	callIndex: Int!
+	block: BigInt!
+	time: BigInt!
+	pool: Pool!
+	feeRate: Int!
 }
 
 """
@@ -143,22 +140,22 @@ Reflects sequences of changes necessary to accurately calculate aggregate statis
 such as volume, TVL and fees collected
 """
 type AggEvent @entity(immutable: true) {
-  id: Bytes!
-  transactionHash: Bytes!
-  eventIndex: Int!
-  pool: Pool!
-  block: BigInt!
-  time: BigInt!
-  baseFlow: BigInt
-  quoteFlow: BigInt
-  isSwap:  Boolean!
-  isLiq: Boolean!
-  isFeeChange: Boolean!
-  swapPrice: BigDecimal
-  inBaseQty: Boolean!
-  isTickSkewed: Boolean!
-  flowsAtMarket: Boolean!
-  bidTick: Int
-  askTick: Int
-  feeRate: Int
+	id: Bytes!
+	transactionHash: Bytes!
+	eventIndex: Int!
+	pool: Pool!
+	block: BigInt!
+	time: BigInt!
+	baseFlow: BigInt
+	quoteFlow: BigInt
+	isSwap: Boolean!
+	isLiq: Boolean!
+	isFeeChange: Boolean!
+	swapPrice: BigDecimal
+	inBaseQty: Boolean!
+	isTickSkewed: Boolean!
+	flowsAtMarket: Boolean!
+	bidTick: Int
+	askTick: Int
+	feeRate: Int
 }
